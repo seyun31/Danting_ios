@@ -1,0 +1,6 @@
+framework module Pods_Danting {
+  umbrella header "Pods-Danting-umbrella.h"
+
+  export *
+  module * { export * }
+}

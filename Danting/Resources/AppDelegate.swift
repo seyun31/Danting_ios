@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Danting
 //
-//  Created by 김은상 on 10/4/24.
+//  Created by 김은상 on 10/5/24.
 //
 
 import UIKit
