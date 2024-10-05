@@ -7,6 +7,13 @@
 
 import UIKit
 
+extension UIView {
+    func addSubviews(_ views: UIView...) {
+        views.forEach{self.addSubview($0)}
+    }
+}
+
+
 extension UIColor {
     
     convenience init(hexCode: String, alpha: CGFloat = 1.0) {
