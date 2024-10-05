@@ -10,7 +10,7 @@ import SnapKit
 import Then
 
 
-final class StandbyViewController: UIViewController {
+class StandbyViewController: UIViewController {
 
     private lazy var readyButton = UIButton().then {
         $0.setTitle("준비", for: .normal)
@@ -125,18 +125,20 @@ extension StandbyViewController {
     
     
     private func animateTintColorChange() {
-            // 애니메이션 적용 (3초간)
+        // 애니메이션 적용 (3초간)
+        UIView.animate(withDuration: 3.0, animations: {
+            // 색상을 파란색으로 변경
+            self.heartImage.tintColor = UIColor(hexCode: "#FB6969")
+        }, completion: { _ in
+            // 애니메이션이 끝나면 다시 실행 (반대 색상으로 변경)
             UIView.animate(withDuration: 3.0, animations: {
-                // 색상을 파란색으로 변경
-                self.heartImage.tintColor = UIColor(hexCode: "#FB6969")
+                self.heartImage.tintColor = UIColor(hexCode: "#D7D7D7")
             }, completion: { _ in
-                // 애니메이션이 끝나면 다시 실행 (반대 색상으로 변경)
-                UIView.animate(withDuration: 3.0, animations: {
-                    self.heartImage.tintColor = UIColor(hexCode: "#D7D7D7")
-                }, completion: { _ in
-                    // 다시 애니메이션을 시작하여 무한 반복
-                    self.animateTintColorChange()
-                })
+                // 다시 애니메이션을 시작하여 무한 반복
+                self.animateTintColorChange()
             })
-        }
+        })
+    }
+    
+   
 }
