@@ -76,6 +76,9 @@ class StandbyViewController: UIViewController {
     
     
     @objc func readyButtonDidTapped(_ sender: UIButton) {
+        let popupVC = PopupViewController()
+        self.present(popupVC, animated: true)
+        // 준비완료시 서버로 상태 전달
         
         if sender.currentTitle == "준비" {
             sender.backgroundColor = UIColor(hexCode: "#A8B1CE")
@@ -83,6 +86,7 @@ class StandbyViewController: UIViewController {
         } else {
             sender.backgroundColor = UIColor(hexCode: "#5A80FD")
             sender.setTitle("준비", for: .normal)
+            
         }
     }
 

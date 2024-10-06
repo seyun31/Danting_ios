@@ -183,8 +183,8 @@ final class StandbyVC4: StandbyViewController {
         print("Dubug: userButtonTapped")
         print("Debug: userButtonTag == \(sender.tag)")
         
-        // 준비완료시 서버로 상태 전달
     }
+    
     
     
 }
