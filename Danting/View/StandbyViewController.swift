@@ -77,6 +77,7 @@ class StandbyViewController: UIViewController {
     
     @objc func readyButtonDidTapped(_ sender: UIButton) {
         let popupVC = PopupViewController()
+        popupVC.modalPresentationStyle = .overFullScreen
         self.present(popupVC, animated: true)
         // 준비완료시 서버로 상태 전달
         

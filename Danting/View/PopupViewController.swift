@@ -34,6 +34,29 @@ final class PopupViewController: UIViewController {
         $0.text = "새로운 만남을 가질 준비가 되었나요?"
         $0.textAlignment = .center
         $0.textColor = .black
+        $0.font = UIFont(name: "Pretendard-Bold", size: 18)
+    }
+    
+    private let descriptionLabel = UILabel().then {
+        $0.text = "상호 간의 배려를 통해 즐거운 만남을 이어가 보세요. 타인에 대한 비방이나 욕설은 처벌의 대상이 됩니다."
+        $0.textAlignment = .left
+        $0.textColor = .black
+        $0.numberOfLines = 0
+        $0.font = UIFont(name: "Pretendard-Light", size: 12)
+    }
+    
+    private lazy var kakaoChatButton = UIButton().then {
+        $0.setTitle("카카오로 3초만에 시작하기", for: .normal)
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 10
+        $0.backgroundColor = UIColor(hexCode: "#FBE400")
+        $0.setTitleColor(UIColor(hexCode: "#3E1A1D"), for: .normal)
+        $0.semanticContentAttribute = .forceLeftToRight
+        $0.contentHorizontalAlignment = .fill
+        $0.contentVerticalAlignment = .center
+        $0.setImage(UIImage(named: "logo_kakao.png"), for: .normal)
+        $0.imageEdgeInsets = UIEdgeInsets(top: 2, left: 23, bottom: 2, right: 2)
+        $0.titleEdgeInsets = UIEdgeInsets(top: 2, left: 40, bottom: 2, right: 2)
     }
     
     //MARK: - LifeCycle
@@ -42,20 +65,29 @@ final class PopupViewController: UIViewController {
         self.configurePopupVC()
     }
     
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.dismiss(animated: true, completion: nil)
+    }
     //MARK: - Helpers
     
     
-    
+    @objc func openKakaoChatting() {
+        print("Debug: opendKakaoChatting")
+        
+    }
     
     
 }
 
 extension PopupViewController {
     private func configurePopupVC() {
+        
+        self.view.backgroundColor = .clear
         self.view.addSubview(self.backgroundView)
         
-        self.backgroundView.addSubviews(self.popupView, self.logobaseView)
+        self.backgroundView.addSubviews(self.popupView, self.logobaseView,
+                                        self.titleLabel, self.descriptionLabel,
+                                        self.kakaoChatButton)
                 
         self.logobaseView.addSubview(self.logoImageView)
         
@@ -79,9 +111,27 @@ extension PopupViewController {
             $0.width.height.equalTo(63)
         }
         
+        self.titleLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(popupView.snp.top).offset(61)
+            $0.width.equalTo(260)
+            $0.height.equalTo(19)
+        }
         
+        self.descriptionLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+            $0.width.equalTo(260)
+            $0.height.equalTo(40)
+        }
         
-        
+        self.kakaoChatButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(descriptionLabel.snp.bottom).offset(10)
+            $0.width.equalTo(273)
+            $0.height.equalTo(45)
+            
+        }
     }
     
 }
