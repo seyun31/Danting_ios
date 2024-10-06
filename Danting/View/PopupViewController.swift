@@ -11,7 +11,10 @@ import SnapKit
 
 final class PopupViewController: UIViewController {
     //MARK: - Properties
-    private let backgroundView = UIView().then { $0.backgroundColor = UIColor(hexCode: "#B6B6B6").withAlphaComponent(0.49) }
+    private let backgroundView = UIView().then {
+        $0.backgroundColor = UIColor(hexCode: "#B6B6B6").withAlphaComponent(0.49)
+        $0.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+    }
     
     private let popupView = UIView().then {
         $0.backgroundColor = .white
@@ -57,6 +60,7 @@ final class PopupViewController: UIViewController {
         $0.setImage(UIImage(named: "logo_kakao.png"), for: .normal)
         $0.imageEdgeInsets = UIEdgeInsets(top: 2, left: 23, bottom: 2, right: 2)
         $0.titleEdgeInsets = UIEdgeInsets(top: 2, left: 40, bottom: 2, right: 2)
+        $0.addTarget(self, action: #selector(openKakaoChatting), for: .touchUpInside)
     }
     
     //MARK: - LifeCycle
@@ -64,7 +68,25 @@ final class PopupViewController: UIViewController {
         super.viewDidLoad()
         self.configurePopupVC()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // curveEaseOut: 시작은 천천히, 끝날 땐 빠르게
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut) { [weak self] in
+            self?.backgroundView.transform = .identity
+            self?.backgroundView.isHidden = false
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        // curveEaseIn: 시작은 빠르게, 끝날 땐 천천히
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseIn) { [weak self] in
+            self?.backgroundView.transform = .identity
+            self?.backgroundView.isHidden = true
+        }
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.dismiss(animated: true, completion: nil)
     }
