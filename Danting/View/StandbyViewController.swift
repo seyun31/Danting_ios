@@ -61,65 +61,19 @@ class StandbyViewController: UIViewController {
     private lazy var dot_15 = createDot(at: CGPoint(x: 157, y: 577), size: 13, colorHex: "CEDEFF", alpha: 0.75)
     private lazy var dot_16 = createDot(at: CGPoint(x: 223, y: 602), size: 7, colorHex: "CEDEFF", alpha: 0.35)
 
-    var currentDotCount = 0
+    private var currentDotCount = 0
     
-    let dotSequence = [0, 1, 2, 3, 2, 1, 0] // 점의 수 배열
+    private let dotSequence = [0, 1, 2, 3, 2, 1, 0] // 점의 수 배열
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureCommonComponents()
-        self.configureUIWithMeetingType()
         self.animateTintColorChange()
         self.animateDotsFading()
         self.animateDots()
     }
     
-    private func animateDotsFading() {
-        let dots = [dot_1, dot_2, dot_3, dot_4, dot_5, dot_6, dot_7, dot_8, dot_9, dot_10,
-                    dot_11, dot_12, dot_13, dot_14, dot_15, dot_16]
-
-        let group = DispatchGroup()
-
-        for dot in dots {
-            group.enter()
-
-            let originalAlpha = dot.alpha
-
-            UIView.animate(withDuration: 3.0, animations: {
-                dot.alpha = 0
-            }) { _ in
-                UIView.animate(withDuration: 3.0, animations: {
-                    dot.alpha = originalAlpha
-                }) { _ in
-                    group.leave()
-                }
-            }
-        }
-
-        group.notify(queue: .main) {
-            self.animateDotsFading()
-        }
-    }
-    func animateDots() {
-        findingLoveLabel.text = "Finding Love"
-        currentDotCount = 0
-        
-        for (index, count) in dotSequence.enumerated() {
-            let delay = Double(index) * 1.0 // 1초 간격으로 애니메이션 수행
-            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                self.updateLabelWithDots(count: count)
-            }
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + Double(dotSequence.count)) { // 전체 애니메이션 시간
-            self.animateDots()
-        }
-    }
     
-    func updateLabelWithDots(count: Int) {
-        let dots = String(repeating: "·", count: count)
-        self.findingLoveLabel.text = "Finding Love" + dots
-    }
     
     @objc func readyButtonDidTapped(_ sender: UIButton) {
         
@@ -189,14 +143,7 @@ extension StandbyViewController {
         self.heartImage.snp.makeConstraints {
             $0.centerX.centerY.equalToSuperview()
         }
-        
     }
-
-    private func configureUIWithMeetingType() {
-        let test_meetingType = 2
-        
-    }
-    
     
     
     private func animateTintColorChange() {
@@ -211,5 +158,50 @@ extension StandbyViewController {
         })
     }
     
-   
+    private func animateDotsFading() {
+        let dots = [dot_1, dot_2, dot_3, dot_4, dot_5, dot_6, dot_7, dot_8, dot_9, dot_10,
+                    dot_11, dot_12, dot_13, dot_14, dot_15, dot_16]
+
+        let group = DispatchGroup()
+
+        for dot in dots {
+            group.enter()
+
+            let originalAlpha = dot.alpha
+
+            UIView.animate(withDuration: 3.0, animations: {
+                dot.alpha = 0
+            }) { _ in
+                UIView.animate(withDuration: 3.0, animations: {
+                    dot.alpha = originalAlpha
+                }) { _ in
+                    group.leave()
+                }
+            }
+        }
+
+        group.notify(queue: .main) {
+            self.animateDotsFading()
+        }
+    }
+    func animateDots() {
+        findingLoveLabel.text = "Finding Love"
+        currentDotCount = 0
+        
+        for (index, count) in dotSequence.enumerated() {
+            let delay = Double(index) * 1.0 // 1초 간격으로 애니메이션 수행
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                self.updateLabelWithDots(count: count)
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + Double(dotSequence.count)) { // 전체 애니메이션 시간
+            self.animateDots()
+        }
+    }
+    
+    func updateLabelWithDots(count: Int) {
+        let dots = String(repeating: "·", count: count)
+        self.findingLoveLabel.text = "Finding Love" + dots
+    }
 }
