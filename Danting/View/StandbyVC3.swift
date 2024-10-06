@@ -156,8 +156,8 @@ extension StandbyVC3 {
                               fifthUserStackView, sixthUserStackView)
         
         self.firstUserStackView.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(55)
-            $0.top.equalToSuperview().offset(264)
+            $0.leading.equalToSuperview().offset(42)
+            $0.top.equalToSuperview().offset(274)
             $0.width.equalTo(67.35)
             $0.height.equalTo(84.42)
         }
@@ -170,15 +170,15 @@ extension StandbyVC3 {
         }
         
         self.thirdUserStackView.snp.makeConstraints {
-            $0.trailing.equalToSuperview().offset(-55)
-            $0.top.equalToSuperview().offset(264)
+            $0.trailing.equalToSuperview().offset(-42)
+            $0.top.equalToSuperview().offset(274)
             $0.width.equalTo(67.35)
             $0.height.equalTo(84.42)
         }
         
         self.fourthUserStackView.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(55)
-            $0.top.equalToSuperview().offset(457)
+            $0.leading.equalToSuperview().offset(42)
+            $0.top.equalToSuperview().offset(447)
             $0.width.equalTo(67.35)
             $0.height.equalTo(84.42)
         }
@@ -191,8 +191,8 @@ extension StandbyVC3 {
         }
         
         self.sixthUserStackView.snp.makeConstraints {
-            $0.trailing.equalToSuperview().offset(-55)
-            $0.top.equalToSuperview().offset(457)
+            $0.trailing.equalToSuperview().offset(-42)
+            $0.top.equalToSuperview().offset(447)
             $0.width.equalTo(67.35)
             $0.height.equalTo(84.42)
         }
