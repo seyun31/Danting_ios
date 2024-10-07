@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
         window = UIWindow(windowScene: windowScene)
 //        window?.rootViewController = StandbyViewController()
-        window?.rootViewController = StandbyVC3()
+        window?.rootViewController = StandbyVC4()
 
         window?.makeKeyAndVisible()
 

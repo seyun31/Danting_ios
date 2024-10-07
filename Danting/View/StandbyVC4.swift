@@ -157,7 +157,7 @@ final class StandbyVC4: StandbyViewController {
     
     private lazy var eighthUserImageButton = UIButton().then {
         $0.setImage(UIImage(named: "unready.png"), for: .normal)
-        $0.tag = 6
+        $0.tag = 8
     }
     
     private lazy var eighthUserNameLabel = UILabel().then {
@@ -173,16 +173,37 @@ final class StandbyVC4: StandbyViewController {
                                 self.fifthUserImageButton, self.sixthUserImageButton,
                                 self.seventhUserImageButton, self.eighthUserImageButton]
     
+    lazy var firstInfoView = InfoView().then { $0.isHidden = true }
+    
+    lazy var secondInfoView = InfoView().then { $0.isHidden = true }
+    
+    lazy var thirdInfoView = InfoView().then { $0.isHidden = true }
+    
+    lazy var fourthInfoView = InfoView().then { $0.isHidden = true }
+    
+    lazy var fifthInfoView = InfoView().then { $0.isHidden = true }
+    
+    lazy var sixthInfoView = InfoView().then { $0.isHidden = true }
+    
+    lazy var seventhInfoView = InfoView().then { $0.isHidden = true }
+    
+    lazy var eightInfoView = InfoView().then { $0.isHidden = true }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureStandyVC4()
         self.settingActionsForImageButton()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.settingCornerRadiusForInfoView()
+    }
+    
     @objc func userButtonTapped(_ sender: UIButton) {
         print("Dubug: userButtonTapped")
         print("Debug: userButtonTag == \(sender.tag)")
-        
+        self.presentInfoView(tag: sender.tag)
     }
     
     
@@ -190,13 +211,17 @@ final class StandbyVC4: StandbyViewController {
 }
 
 
-extension StandbyVC4 {
+extension StandbyVC4: StandbyInformation {
 
     private func configureStandyVC4() {
         self.view.addSubviews(firstUserStackView, secondUserStackView,
                               thirdUserStackView, fourthUserStackView,
                               fifthUserStackView, sixthUserStackView,
-                              seventhUserStackView, eighthUserStackView)
+                              seventhUserStackView, eighthUserStackView,
+                              firstInfoView, secondInfoView,
+                              thirdInfoView, fourthInfoView,
+                              fifthInfoView, sixthInfoView,
+                              seventhInfoView, eightInfoView)
         
         self.firstUserStackView.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(24)
@@ -255,12 +280,104 @@ extension StandbyVC4 {
             $0.width.equalTo(67.35)
             $0.height.equalTo(84.42)
         }
+        
+        self.firstInfoView.snp.makeConstraints {
+            $0.leading.equalTo(self.firstUserImageButton.snp.leading)
+            $0.height.equalTo(49)
+            $0.bottom.equalTo(self.firstUserImageButton.snp.top).offset(-8)
+            $0.width.equalTo(127)
+        }
+        
+        self.secondInfoView.snp.makeConstraints {
+            $0.trailing.equalTo(self.secondUserImageButton.snp.trailing)
+            $0.height.equalTo(49)
+            $0.bottom.equalTo(self.secondUserImageButton.snp.top).offset(-8)
+            $0.width.equalTo(127)
+        }
+        
+        self.thirdInfoView.snp.makeConstraints {
+            $0.leading.equalTo(self.thirdUserImageButton.snp.leading)
+            $0.height.equalTo(49)
+            $0.bottom.equalTo(self.thirdUserImageButton.snp.top).offset(-8)
+            $0.width.equalTo(127)
+        }
+        
+        self.fourthInfoView.snp.makeConstraints {
+            $0.trailing.equalTo(self.fourthUserImageButton.snp.trailing)
+            $0.height.equalTo(49)
+            $0.bottom.equalTo(self.fourthUserImageButton.snp.top).offset(-8)
+            $0.width.equalTo(127)
+        }
+        
+        
+        
+        self.fifthInfoView.snp.makeConstraints {
+            $0.leading.equalTo(self.fifthUserImageButton.snp.leading)
+            $0.height.equalTo(49)
+            $0.top.equalTo(self.fifthUserNameLabel.snp.bottom).offset(8)
+            $0.width.equalTo(127)
+        }
+        
+        self.sixthInfoView.snp.makeConstraints {
+            $0.trailing.equalTo(self.sixthUserImageButton.snp.trailing)
+            $0.height.equalTo(49)
+            $0.top.equalTo(self.sixthUserNameLabel.snp.bottom).offset(8)
+            $0.width.equalTo(127)
+        }
+        
+        self.seventhInfoView.snp.makeConstraints {
+            $0.leading.equalTo(self.seventhUserImageButton.snp.leading)
+            $0.height.equalTo(49)
+            $0.top.equalTo(self.seventhUserNameLabel.snp.bottom).offset(8)
+            $0.width.equalTo(127)
+        }
+        
+        self.eightInfoView.snp.makeConstraints {
+            $0.trailing.equalTo(self.eighthUserImageButton.snp.trailing)
+            $0.height.equalTo(49)
+            $0.top.equalTo(self.eighthUserNameLabel.snp.bottom).offset(8)
+            $0.width.equalTo(127)
+        }
+        
     }
     private func settingActionsForImageButton() {
         self.buttons.forEach {
-            
             $0.addTarget(self, action: #selector(userButtonTapped(_:)), for: .touchUpInside)
         }
-        
+    }
+    
+    func presentInfoView(tag: Int) {
+        switch tag {
+        case 1:
+            firstInfoView.isHidden.toggle()
+        case 2:
+            secondInfoView.isHidden.toggle()
+        case 3:
+            thirdInfoView.isHidden.toggle()
+        case 4:
+            fourthInfoView.isHidden.toggle()
+        case 5:
+            fifthInfoView.isHidden.toggle()
+        case 6:
+            sixthInfoView.isHidden.toggle()
+        case 7:
+            seventhInfoView.isHidden.toggle()
+        case 8:
+            eightInfoView.isHidden.toggle()
+        default:
+            break
+        }
+    }
+    
+    private func settingCornerRadiusForInfoView() {
+        self.firstInfoView.roundCorners(topLeft: 25.5, topRight: 25, bottomRight: 25)
+        self.secondInfoView.roundCorners(topLeft: 25, topRight: 25.5, bottomLeft: 25)
+        self.thirdInfoView.roundCorners(topLeft: 25.5, topRight: 25, bottomRight: 25)
+        self.fourthInfoView.roundCorners(topLeft: 25, topRight: 25.5, bottomLeft: 25)
+
+        self.fifthInfoView.roundCorners(topRight: 25, bottomLeft: 25.5, bottomRight: 25)
+        self.sixthInfoView.roundCorners(topLeft: 25, bottomLeft: 25 ,bottomRight: 25.5)
+        self.seventhInfoView.roundCorners(topRight: 25, bottomLeft: 25.5, bottomRight: 25)
+        self.eightInfoView.roundCorners(topLeft: 25, bottomLeft: 25 ,bottomRight: 25.5)
     }
 }
