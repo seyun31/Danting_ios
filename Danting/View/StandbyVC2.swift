@@ -20,6 +20,29 @@ final class StandbyVC2: StandbyViewController {
         
     }
     
+    private lazy var secondUserStackView = UIStackView(arrangedSubviews: [secondUserImageButton, secondUserNameLabel]).then {
+        $0.backgroundColor = .clear
+        $0.axis = .vertical
+        $0.distribution = .fill
+        $0.spacing = 4
+        
+    }
+    
+    private lazy var thirdUserStackView = UIStackView(arrangedSubviews: [thirdUserImageButton, thirdUserNameLabel]).then {
+        $0.backgroundColor = .clear
+        $0.axis = .vertical
+        $0.distribution = .fill
+        $0.spacing = 4
+        
+    }
+    
+    private lazy var fourthUserStackView = UIStackView(arrangedSubviews: [fourthUserImageButton, fourthUserNameLabel]).then {
+        $0.backgroundColor = .clear
+        $0.axis = .vertical
+        $0.distribution = .fill
+        $0.spacing = 4
+    }
+    
     private lazy var firstUserImageButton = UIButton().then {
         $0.setImage(UIImage(named: "unready.png"), for: .normal)
         $0.tag = 1
@@ -32,13 +55,8 @@ final class StandbyVC2: StandbyViewController {
         $0.font = UIFont.systemFont(ofSize: 12)
     }
     
-    private lazy var secondUserStackView = UIStackView(arrangedSubviews: [secondUserImageButton, secondUserNameLabel]).then {
-        $0.backgroundColor = .clear
-        $0.axis = .vertical
-        $0.distribution = .fill
-        $0.spacing = 4
-        
-    }
+    
+    
     
     private lazy var secondUserImageButton = UIButton().then {
         $0.setImage(UIImage(named: "unready.png"), for: .normal)
@@ -52,13 +70,7 @@ final class StandbyVC2: StandbyViewController {
         $0.font = UIFont.systemFont(ofSize: 12)
     }
     
-    private lazy var thirdUserStackView = UIStackView(arrangedSubviews: [thirdUserImageButton, thirdUserNameLabel]).then {
-        $0.backgroundColor = .clear
-        $0.axis = .vertical
-        $0.distribution = .fill
-        $0.spacing = 4
-        
-    }
+    
     
     private lazy var thirdUserImageButton = UIButton().then {
         $0.setImage(UIImage(named: "unready.png"), for: .normal)
@@ -72,12 +84,7 @@ final class StandbyVC2: StandbyViewController {
         $0.font = UIFont.systemFont(ofSize: 12)
     }
     
-    private lazy var fourthUserStackView = UIStackView(arrangedSubviews: [fourthUserImageButton, fourthUserNameLabel]).then {
-        $0.backgroundColor = .clear
-        $0.axis = .vertical
-        $0.distribution = .fill
-        $0.spacing = 4
-    }
+    
     
     private lazy var fourthUserImageButton = UIButton().then {
         $0.setImage(UIImage(named: "unready.png"), for: .normal)
@@ -94,11 +101,25 @@ final class StandbyVC2: StandbyViewController {
     private lazy var buttons = [self.firstUserImageButton, self.secondUserImageButton,
                                 self.thirdUserImageButton, self.fourthUserImageButton]
     
+    lazy var firstInfoView = InfoView().then { $0.isHidden = true }
+    
+    lazy var secondInfoView = InfoView().then { $0.isHidden = true }
+    
+    lazy var thirdInfoView = InfoView().then { $0.isHidden = true }
+    
+    lazy var fourthInfoView = InfoView().then { $0.isHidden = true }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureStandyVC2()
         self.settingActionsForImageButton()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.settingCornerRadiusForInfoView()
+    }
+
     
     @objc func userButtonTapped(_ sender: UIButton) {
         print("Dubug: userButtonTapped")
@@ -114,18 +135,26 @@ final class StandbyVC2: StandbyViewController {
 extension StandbyVC2: StandbyInformation {
     
     func presentInfoView(tag: Int) {
-        if tag == 1 || tag == 3 { // 오른쪽으로 띄우기
-            
-            
-        } else {
-            
+        switch tag {
+        case 1:
+            firstInfoView.isHidden.toggle()
+        case 2:
+            secondInfoView.isHidden.toggle()
+        case 3:
+            thirdInfoView.isHidden.toggle()
+        case 4:
+            fourthInfoView.isHidden.toggle()
+        default:
+            break
         }
     }
     
 
     private func configureStandyVC2() {
         self.view.addSubviews(firstUserStackView, secondUserStackView,
-                              thirdUserStackView, fourthUserStackView)
+                              thirdUserStackView, fourthUserStackView,
+                              firstInfoView, secondInfoView,
+                              thirdInfoView, fourthInfoView)
         
         self.firstUserStackView.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(55)
@@ -154,11 +183,47 @@ extension StandbyVC2: StandbyInformation {
             $0.width.equalTo(67.35)
             $0.height.equalTo(84.42)
         }
+        
+        self.firstInfoView.snp.makeConstraints {
+            $0.leading.equalTo(self.firstUserImageButton.snp.leading)
+            $0.height.equalTo(49)
+            $0.bottom.equalTo(self.firstUserImageButton.snp.top).offset(-8)
+            $0.width.equalTo(127)
+        }
+        
+        self.secondInfoView.snp.makeConstraints {
+            $0.trailing.equalTo(self.secondUserImageButton.snp.trailing)
+            $0.height.equalTo(49)
+            $0.bottom.equalTo(self.secondUserImageButton.snp.top).offset(-8)
+            $0.width.equalTo(127)
+        }
+        
+        self.thirdInfoView.snp.makeConstraints {
+            $0.leading.equalTo(self.thirdUserImageButton.snp.leading)
+            $0.height.equalTo(49)
+            $0.top.equalTo(self.thirdUserNameLabel.snp.bottom).offset(8)
+            $0.width.equalTo(127)
+        }
+        
+        self.fourthInfoView.snp.makeConstraints {
+            $0.trailing.equalTo(self.fourthUserImageButton.snp.trailing)
+            $0.height.equalTo(49)
+            $0.top.equalTo(self.fourthUserNameLabel.snp.bottom).offset(8)
+            $0.width.equalTo(127)
+        }
+        
     }
     private func settingActionsForImageButton() {
         self.buttons.forEach {
             $0.addTarget(self, action: #selector(userButtonTapped(_:)), for: .touchUpInside)
         }
-        
+    }
+    
+    private func settingCornerRadiusForInfoView() {
+        self.firstInfoView.roundCorners(topLeft: 25.5, topRight: 25, bottomRight: 25)
+        self.secondInfoView.roundCorners(topLeft: 25, topRight: 25.5, bottomLeft: 25)
+        self.thirdInfoView.roundCorners(topRight: 25, bottomLeft: 25.5, bottomRight: 25)
+        self.fourthInfoView.roundCorners(topLeft: 25, bottomLeft: 25 ,bottomRight: 25.5)
+
     }
 }
