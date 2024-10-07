@@ -9,6 +9,10 @@ import UIKit
 import SnapKit
 import Then
 
+protocol StandbyInformation {
+    func presentInfoView(tag: Int)
+}
+
 
 class StandbyViewController: UIViewController {
 

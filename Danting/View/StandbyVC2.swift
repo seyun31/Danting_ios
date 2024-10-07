@@ -103,7 +103,7 @@ final class StandbyVC2: StandbyViewController {
     @objc func userButtonTapped(_ sender: UIButton) {
         print("Dubug: userButtonTapped")
         print("Debug: userButtonTag == \(sender.tag)")
-        
+        self.presentInfoView(tag: sender.tag)
         // 준비완료시 서버로 상태 전달
     }
     
@@ -111,7 +111,17 @@ final class StandbyVC2: StandbyViewController {
 }
 
 
-extension StandbyVC2 {
+extension StandbyVC2: StandbyInformation {
+    
+    func presentInfoView(tag: Int) {
+        if tag == 1 || tag == 3 { // 오른쪽으로 띄우기
+            
+            
+        } else {
+            
+        }
+    }
+    
 
     private func configureStandyVC2() {
         self.view.addSubviews(firstUserStackView, secondUserStackView,
@@ -147,7 +157,6 @@ extension StandbyVC2 {
     }
     private func settingActionsForImageButton() {
         self.buttons.forEach {
-            
             $0.addTarget(self, action: #selector(userButtonTapped(_:)), for: .touchUpInside)
         }
         
