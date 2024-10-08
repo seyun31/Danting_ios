@@ -285,28 +285,24 @@ extension StandbyVC4: StandbyInformation {
             $0.leading.equalTo(self.firstUserImageButton.snp.leading)
             $0.height.equalTo(49)
             $0.bottom.equalTo(self.firstUserImageButton.snp.top).offset(-8)
-            $0.width.equalTo(127)
         }
         
         self.secondInfoView.snp.makeConstraints {
             $0.trailing.equalTo(self.secondUserImageButton.snp.trailing)
             $0.height.equalTo(49)
             $0.bottom.equalTo(self.secondUserImageButton.snp.top).offset(-8)
-            $0.width.equalTo(127)
         }
         
         self.thirdInfoView.snp.makeConstraints {
             $0.leading.equalTo(self.thirdUserImageButton.snp.leading)
             $0.height.equalTo(49)
             $0.bottom.equalTo(self.thirdUserImageButton.snp.top).offset(-8)
-            $0.width.equalTo(127)
         }
         
         self.fourthInfoView.snp.makeConstraints {
             $0.trailing.equalTo(self.fourthUserImageButton.snp.trailing)
             $0.height.equalTo(49)
             $0.bottom.equalTo(self.fourthUserImageButton.snp.top).offset(-8)
-            $0.width.equalTo(127)
         }
         
         
@@ -315,28 +311,24 @@ extension StandbyVC4: StandbyInformation {
             $0.leading.equalTo(self.fifthUserImageButton.snp.leading)
             $0.height.equalTo(49)
             $0.top.equalTo(self.fifthUserNameLabel.snp.bottom).offset(8)
-            $0.width.equalTo(127)
         }
         
         self.sixthInfoView.snp.makeConstraints {
             $0.trailing.equalTo(self.sixthUserImageButton.snp.trailing)
             $0.height.equalTo(49)
             $0.top.equalTo(self.sixthUserNameLabel.snp.bottom).offset(8)
-            $0.width.equalTo(127)
         }
         
         self.seventhInfoView.snp.makeConstraints {
             $0.leading.equalTo(self.seventhUserImageButton.snp.leading)
             $0.height.equalTo(49)
             $0.top.equalTo(self.seventhUserNameLabel.snp.bottom).offset(8)
-            $0.width.equalTo(127)
         }
         
         self.eightInfoView.snp.makeConstraints {
             $0.trailing.equalTo(self.eighthUserImageButton.snp.trailing)
             $0.height.equalTo(49)
             $0.top.equalTo(self.eighthUserNameLabel.snp.bottom).offset(8)
-            $0.width.equalTo(127)
         }
         
     }

@@ -22,10 +22,24 @@ final class InfoView: UIView {
     }
     
     private lazy var majorLabel = UILabel().then {
-        $0.text = "어쩌구저쩌구학과"
+        $0.text = "미디어 커뮤니케이션 학부"
         $0.textColor = .white
         $0.font = UIFont(name: "Pretendard-Regular", size: 10)
         $0.textAlignment = .center
+    }
+    
+    private lazy var nameMajorStackView = UIStackView(arrangedSubviews: [studentNumLabel, majorLabel]).then {
+        $0.axis = .vertical
+        $0.spacing = 7
+        $0.distribution = .fillEqually
+    }
+    
+    private let emptyView = UIView()
+    
+    private lazy var infoStackView = UIStackView(arrangedSubviews: [emptyView, nameMajorStackView]).then {
+        $0.axis = .horizontal
+        $0.distribution = .fill
+        $0.alignment = .fill
     }
     
     //MARK: - LifeCycle
@@ -47,18 +61,14 @@ extension InfoView {
     private func configureInfoView() {
         self.backgroundColor = UIColor(hexCode: "#5A80FD")
 
-        self.addSubviews(self.majorLabel, self.studentNumLabel)
+        self.addSubviews(self.infoStackView)
         
-        self.studentNumLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(7)
-            $0.leading.trailing.equalToSuperview()
-        }
-
-        self.majorLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(self.studentNumLabel.snp.bottom).offset(7)
-            $0.leading.trailing.equalToSuperview()
+        self.infoStackView.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(13)
+            $0.trailing.equalToSuperview().inset(13)
+            $0.centerY.equalToSuperview()
+            $0.height.equalTo(33)
+            
         }
         
     }
