@@ -22,7 +22,7 @@ final class InfoView: UIView {
     }
     
     private lazy var majorLabel = UILabel().then {
-        $0.text = "미디어 커뮤니케이션 학부"
+        $0.text = "어쩌구저쩌구학부"
         $0.textColor = .white
         $0.font = UIFont(name: "Pretendard-Regular", size: 10)
         $0.textAlignment = .center

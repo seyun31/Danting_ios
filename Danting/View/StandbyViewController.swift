@@ -193,12 +193,12 @@ extension StandbyViewController {
             self.animateDotsFading()
         }
     }
-    func animateDots() {
+    private func animateDots() {
         findingLoveLabel.text = "Finding Love"
         currentDotCount = 0
         
         for (index, count) in dotSequence.enumerated() {
-            let delay = Double(index) * 1.0 // 1초 간격으로 애니메이션 수행
+            let delay = Double(index) * 0.5 // 0.5초 간격으로 애니메이션 수행
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 self.updateLabelWithDots(count: count)
             }
@@ -209,7 +209,7 @@ extension StandbyViewController {
         }
     }
     
-    func updateLabelWithDots(count: Int) {
+    private func updateLabelWithDots(count: Int) {
         let dots = String(repeating: "·", count: count)
         self.findingLoveLabel.text = "Finding Love" + dots
     }
